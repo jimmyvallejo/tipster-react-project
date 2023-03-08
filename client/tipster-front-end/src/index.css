@@ -1,8 +1,14 @@
 .app {
   margin-top: -90px;
+  margin-left: 65px;
+  min-height: 100vh;
 }
 
-
+body {
+  min-width: 1100px !important;
+  
+  
+}
 
 *{
   font-family: 'Montserrat', sans-serif;
@@ -11,6 +17,7 @@
 .dimmed {
   background-color: rgba(128, 128, 128, 0.65); 
   pointer-events: none; 
+  margin-left: 0;
 }
 
 .dimmed .mainButtons button {
@@ -46,6 +53,26 @@
   background-color: whitesmoke;
 }
 
+.dimmed .locationInput {
+  background-color: rgba(167, 165, 165, 0.65); 
+}
+
+.dimmed #tipSubmitImg{
+  background-color: rgba(167, 165, 165, 0.65); 
+ 
+}
+
+.dimmed .logout{
+  background-color: rgba(167, 165, 165, 0.65); 
+ 
+}
+
+.dimmed .handleExpand{
+  background-color: rgba(167, 165, 165, 0.65); 
+ 
+}
+
+
 
 #profileimg{
   position: relative;
@@ -74,8 +101,15 @@ top: 10px;
 
 .postlink {
   position: relative;
-  right: 10px;
+  right: 8px;
 }
+
+.loginlink {
+position: relative;
+right: 8px;
+
+}
+
 
 .logo {
   position: relative;
@@ -90,6 +124,26 @@ top: 10px;
   right: 5px;
 }
 
+#loginimg {
+  position: relative;
+  top: 18px;
+}
+
+.nav button {
+  margin-top: 20px;
+background-color: white;
+  color: black;
+  padding: 6px 12px;
+  border-radius: 4px;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+  border: 1px solid grey
+ 
+
+}
+
+
 .nav-links {
   display: flex;
   flex-direction: column;
@@ -100,6 +154,20 @@ top: 10px;
   font-size: 22px;
   top: 70px;
 }
+
+@media (max-width: 1650px) {
+  .nav-links {
+    left: 10%;
+  }
+}
+
+@media (max-width: 1300px) {
+  .nav-links {
+    left: 0%;
+  }
+}
+
+
 
 .nav-links img {
   height: 50px;
@@ -120,8 +188,50 @@ top: 10px;
   text-align: center;
 }
 
+@media screen and (max-width: 1650px) {
+  .weather{
+    background-color: white;
+    left: 85%
+  }
+  
+  .main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 200px;
+    background-color: white;
+  }
+
+  .flex {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100px;
+    
+  }
+
+  .temp {
+    margin-top: 10px;
+  }
+
+  .sunrise-sunset {
+    margin-top: 10px;
+  }
+
+  .day {
+    font-size: 16;
+  }
+
+  .top{
+    width: 120px;
+  }
+  .header {
+    width: 100%
+  }
+}
+
+
 .main{
-  width: 440px;
   border-radius: 20px;
   background-color: #01579b;
 }
@@ -211,21 +321,29 @@ top: 10px;
 }
 
 .tipbox{
-  border: 1px solid grey;
+  border: 3px solid grey;
   width: 700px;
   margin-top: 10px;
   border-radius: 15px;
 }
 
 #tipdetail{
-  border: 1px solid black;
-  min-width: 400px;
+  border: 3px solid black;
+  min-width: 800px;
   border-radius: 20px;
 }
 
 
+.tipEdit {
+  min-height: 400px;
+ 
+}
+
+
+
 #tipdetail img{
   height: 150px;
+  display: flex;
 }
 
 .tipcontainer {
@@ -278,6 +396,7 @@ top: 10px;
 margin-left: 10px;
 font-size: 20px;
 font-weight: bold;
+margin-top: 15px;
 }
 
 .timeDate {
@@ -290,6 +409,20 @@ font-weight: bold;
   margin-left: 10px;
 }
 
+.commentimgbox {
+  border: 1px solid black;
+  width: 70px;
+  border-radius: 40px;
+  margin-left: 5px;
+  padding-left: 3px;
+}
+
+.commentChange {
+  position: relative;
+  left: 550px;
+  padding-top: 20px;
+}
+
 .noTips {
 padding-top: 50px;
 text-align: center;
@@ -300,6 +433,8 @@ text-align: center;
 
   border: 1px solid black;
   border-radius: 50px;
+  
+  
   
   }
 
@@ -336,19 +471,38 @@ text-align: center;
 footer{
 margin-top: 100px;
   height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-align: center;
+
 }
 
 footer a{
 color: black;
 text-decoration: none;
+
 }
+footer a:hover{
+color: black;
+text-decoration: none;
+
+}
+
+.name{
+ 
+  position: relative;
+  bottom: 8px;
+}
+
+
+
 
 .git{
   width: 30px;
   height: 30px;
   margin-right: 10px;
- 
+
 }
 
 .mainButtons {
@@ -363,6 +517,7 @@ text-decoration: none;
 border: none;
 font-size: 20px;
 cursor: pointer;
+background-color: white
 }
 
 .mainButtons button:hover{
@@ -386,6 +541,7 @@ cursor: pointer;
 .commentbox form{
 margin-left: 15px;
 pointer-events: auto; 
+
 
 }
 
@@ -423,6 +579,8 @@ top:15px;
   text-decoration: none;
   color: black;
   font-size: 20px;
+  position: relative;
+  right: 50px;
  }
 
 
@@ -440,15 +598,30 @@ top:15px;
   right: 10px
 }
 
-.tipForm input{
+.commentInput{
   padding-left: 5px;
   width: 500;
   padding-bottom: 90px;
   font-size: 25px;
   word-wrap: break-word; 
   overflow-wrap: break-word; 
-  
-  
+}
+
+.commentText {
+  font-size: 25px;
+  border-radius: 15px;
+  padding-left: 3px;
+}
+
+.locationInput{
+  border-radius: 20px;
+  padding: 5px;
+  margin-bottom: 10px;
+  padding-right: 50px;
+}
+
+#locationLabel{
+  font-size: 19px;
 }
 
 .tipForm button{
@@ -599,4 +772,205 @@ position: relative;
 .tipLink:hover{
   text-decoration: none;
   color: black;
+}
+
+
+#tipSubmitImg {
+  position: relative;
+  top: 20px;
+}
+
+.tipImgPosted {
+  max-width: 99%;
+  max-height: 600px;
+  padding-top: 30px;
+  padding-bottom: 20px;
+  display: flex;
+ justify-content: center;
+
+}
+
+.tipImgDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+#tipDetailText {
+  font-size: 25px;
+}
+
+.tipLocationText{
+  position: relative;
+  left: 25px;
+}
+
+.distance {
+  display: flex;
+  margin-top: 30px;
+}
+
+.duration {
+  margin-left: 120px;
+}
+
+.map-container {
+  width: 100%;
+  height:500px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.map-container-shrunk {
+  width: 0%;
+  height:0%;
+}
+
+.expand {
+  text-align: center;
+  margin-top: 35px;
+ 
+}
+
+.expand  button{
+background-color: white;
+  color: black;
+  padding: 6px 12px;
+  border-radius: 4px;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+  border: 1px solid grey
+ 
+
+}
+
+#commentLink {
+  text-decoration: none;
+  color: black
+}
+
+.edit{
+  text-decoration: none;
+  color: #424242;
+  padding-right: 10px;
+}
+
+.edit:hover{
+  text-decoration: none;
+  color: #424242;
+  padding-right: 10px;
+}
+
+.delete {
+  margin-left: 50px;
+}
+
+.tipText {
+  position: relative;
+  right:20px;
+  top:15px;
+  font-size: 16px;
+}
+
+.textDetailEdit {
+  position: relative;
+  left:53px;
+  top: 10px;
+  font-size: 18px;
+}
+
+.textDetailEdit input {
+  padding-bottom: 50px;
+}
+
+#text {
+  padding-bottom: 50px;
+}
+
+.tipEditBack {
+  text-align: center;
+  position: relative;
+  top:70px;
+}
+
+
+#profileForm button {
+  position: relative;
+  top: 25px;
+  padding: 20px;
+ cursor: pointer;
+ pointer-events: auto; 
+}
+
+.detailEditBtn{
+margin-top: 10px;
+}
+
+#categoryEdit {
+  position: relative;
+  left: 93px;
+  top:30px;
+}
+
+#labelEdit {
+  position: relative;
+  left: 90px;
+  top: 30px;
+}
+
+#profile_Edit {
+  position: relative;
+  left: 80px;
+  top: 20px;
+}
+
+#login {
+  margin-top: 5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#login h1{
+  text-align: center;
+  font-size: 40px;
+  padding-bottom: 15px;
+}
+
+#login label {
+  font-size: 20px;
+  padding-left: 10px;
+
+}
+
+#login input {
+  border-radius: 20px;
+  padding-left: 5px;
+}
+
+#login button {
+  font-size: 20px;
+position: relative;
+left: 255px;
+top: 20px;
+cursor: pointer;
+border: none;
+}
+
+.passwordLabel {
+  position: relative;
+  left: 25px;
+}
+
+.passwordInput{
+  position: relative;
+  left: 25px;
+}
+
+#loginImg {
+  width: 50px;
+  height: 50px;
 }

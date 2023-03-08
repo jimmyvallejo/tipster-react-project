@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-
+const fileUploader = require('../config/cloudinary.config')
 const User = require('../models/User');
 const Tip = require('../models/tip');
 const Comment = require("../models/comment")
@@ -21,9 +21,15 @@ router.get("/all-tips", (req, res, next) => {
   });
 
 
+  router.post('/add-picture', fileUploader.single('picture'), (req, res, next) => {
+    console.log( "File:" ,req.file)
+    res.json(req.file.path)
+  })
+
+
   router.post('/add-tip', (req, res, next) => {
             let newTip = {
-                picture: req.body.image,
+                picture: req.body.picture,
                 owner: req.body.owner,
                 ownerpicture: req.body.ownerpicture,
                 text: req.body.text,
@@ -51,12 +57,21 @@ router.get("/all-tips", (req, res, next) => {
                 });
         });
 
+
+
+        router.post('/add-picture', fileUploader.single('picture'), (req, res, next) => {
+          console.log( "File:" ,req.file)
+          res.json(req.file.path)
+        })
+
+
 router.post('/add-comment', (req, res, next) => {
     let newComment = {
         owner: req.body.owner,
-        ownerpicture: req.body.picture,
+        ownerpicture: req.body.ownerpicture,
         text: req.body.text,
         likes: req.body.likes,
+       
     };
     Comment.create(newComment)
         .then((newComment) => {
@@ -120,6 +135,47 @@ router.get('/tip-detail/:id', (req, res, next) => {
       })
   });
 
+  router.get('/comment/delete/:id', (req, res, next)=> {
+    const id = req.params.id;
+    Comment.findByIdAndDelete(id)
+      .then((deletedComment) => {
+        console.log(deletedComment)
+        res.json(deletedComment)
+      })
+      .catch((err) => {
+        console.log(err)
+        res.status(500).send('Error deleting comment')
+      })
+  })
+
+
+  router.get('/tip/delete/:id', (req, res, next)=> {
+    const id = req.params.id;
+    Tip.findByIdAndDelete(id)
+      .then((deletedTip) => {
+        console.log(deletedTip)
+        res.json(deletedTip)
+      })
+      .catch((err) => {
+        console.log(err)
+        res.status(500).send('Error deleting Tip')
+      })
+  })
+
+  router.post('/tip-detail/:id', async (req, res, next) => {
+    const id = req.params.id;
+    const {text, category, picture, location} = req.body
+    try {
+      const updatedTip = await Tip.findByIdAndUpdate(id,
+        {text, category, picture, location},
+        { new: true });
+       console.log(updatedTip)
+      res.json(updatedTip);
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({ message: "Server error" });
+    }
+  });
 
   
 

@@ -4,28 +4,20 @@ const fileUploader = require('../config/cloudinary.config')
 const User = require('../models/User')
 const Tip = require('../models/tip')
 
-router.post("/upload", fileUploader.single("imageUrl"), (req, res, next) => {
-  // console.log("file is: ", req.file)
- 
-  if (!req.file) {
-    next(new Error("No file uploaded!"));
-    return;
-  }
-
-  res.json({ fileUrl: req.file.path });
-});
 
 
-router.post('/profile-edit/:username', fileUploader.single("profile_image"), async (req, res, next) => {
+
+router.post('/add-picture', fileUploader.single('profile_image'), (req, res, next) => {
+  console.log( "File:" ,req.file)
+  res.json(req.file.path)
+})
+
+
+
+
+router.post('/profile-edit/:username', async (req, res, next) => {
   const username = req.params.username;
-  let profile_image;
-
-
-  if (req.file) {
-    profile_image = req.file.path;
-  } else {
-    profile_image = "https://cdn-icons-png.flaticon.com/512/702/702814.png";
-  }
+ 
 
   try {
     const existingUser = await User.findOne({ $or: [{ email: req.body.email }, { username: req.body.username }] });
@@ -37,12 +29,28 @@ router.post('/profile-edit/:username', fileUploader.single("profile_image"), asy
     const updatedUser = await User.findOneAndUpdate({ username: username },
       {
         name: req.body.name,
-        profile_image: profile_image,
         email: req.body.email,
-        username: req.body.username
+        username: req.body.username,
+        profile_image: req.body.profile_image
       },
       { new: true });
 
+      
+         const updateImage = await Tip.updateMany(
+           { owner: username },
+           { $set: { ownerpicture: req.body.profile_image } }
+         );
+
+      
+      const updateResult = await Tip.updateMany(
+         { owner: username },
+         { $set: { owner: req.body.username } }
+       );
+       
+    
+     console.log(updateResult)
+     console.log(updateImage)
+     console.log(req.body)
     res.json(updatedUser);
   } catch (err) {
     console.log(err);
@@ -84,11 +92,16 @@ router.get('/profile/delete/:username', (req, res, next)=> {
   User.findOneAndDelete({ username })
   .then((deletedUser) => {
     console.log(deletedUser)
-     console.log("User deleted")
+    res.json(deletedUser) 
+    console.log("User deleted")
   }).catch((err) => {
       console.log(err)
   })
 })
+
+
+
+
 
 
 module.exports = router;

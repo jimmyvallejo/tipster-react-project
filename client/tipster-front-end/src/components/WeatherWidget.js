@@ -9,15 +9,16 @@ export default function WeatherApp() {
   const [data, setData] = useState([]);
 
 
-let WEATHER_API_KEY = "363ad593afcc0d7d49a25b60fd9e7a52"
+
 let WEATHER_API_URL = 'https://api.openweathermap.org/data/2.5'
 
   useEffect(() => {
     const fetchData = async () => {
-        await fetch(`${WEATHER_API_URL}/weather/?lat=${lat}&lon=${long}&units=metric&APPID=${WEATHER_API_KEY}`)
+        await fetch(`${WEATHER_API_URL}/weather/?lat=${lat}&lon=${long}&units=metric&APPID=${process.env.REACT_APP_WEATHER_API_KEY}`)
         .then(res => res.json())
         .then(result => {
           setData(result);
+         
         });
     };
 
@@ -31,6 +32,8 @@ let WEATHER_API_URL = 'https://api.openweathermap.org/data/2.5'
     }
   }, [lat, long]);
 
+
+
   return (
     <div className="weather">
       {typeof data.main !== "undefined" ? (
@@ -42,7 +45,8 @@ let WEATHER_API_URL = 'https://api.openweathermap.org/data/2.5'
         </div>
   
         <div className="flex">
-        <p className="temp">Temperature: {(data.main.temp * 9/5) + 32} &deg;F</p>
+        <p className="temp">Temperature: {Number(data.main.temp * 9/5) + 32} &deg;F</p>
+        
           <p className="temp">Humidity: {data.main.humidity} %</p>
         </div>
   

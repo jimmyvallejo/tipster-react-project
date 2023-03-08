@@ -6,11 +6,14 @@ import { AuthContext } from "../context/auth.context";
 import Comment from "../components/addComment";
 import AddTip from "../components/addTip";
 
+
+
 const Home = ({ dimBackground, isBackgroundDimmed, setIsBackgroundDimmed }) => {
   const { tips, getTips, comment, authUser, setAuthUser } =
     useContext(LoadingContext);
-  const [originalTips, setOriginalTips] = useState([]);
-  const [filteredTips, setFilteredTips] = useState([]);
+ 
+
+  const {originalTipsContext, filteredTipsContext, setOriginalTipsContext, setFilteredTipsContext} = useContext(LoadingContext)
 
   useEffect(() => {
     if (!tips) {
@@ -20,8 +23,8 @@ const Home = ({ dimBackground, isBackgroundDimmed, setIsBackgroundDimmed }) => {
 
   useEffect(() => {
     if (tips) {
-      setOriginalTips(tips);
-      setFilteredTips(tips);
+      setOriginalTipsContext(tips);
+      setFilteredTipsContext(tips);
     }
   }, [tips, comment]);
 
@@ -32,25 +35,24 @@ const Home = ({ dimBackground, isBackgroundDimmed, setIsBackgroundDimmed }) => {
 
   const filterTipList = (category) => {
     if (category === "All") {
-      setFilteredTips(originalTips);
-      console.log(filteredTips)
+      setFilteredTipsContext(originalTipsContext);
       
     } else {
-      const filtered = originalTips.filter((tip) => tip.category === category);
-      setFilteredTips(filtered);
+      const filtered = originalTipsContext.filter((tip) => tip.category === category);
+      setFilteredTipsContext(filtered);
     }
   };
 
 
 
-  const searchTipList = filteredTips.filter((tip) => {
+  const searchTipList = filteredTipsContext ? filteredTipsContext.filter((tip) => {
     const searchText = tip.text.toLowerCase();
     const searchCategory = tip.category.toLowerCase();
     const searchQuery = query.toLowerCase();
   
     return searchText.includes(searchQuery) ||
            searchCategory.includes(searchQuery) 
-  });
+  }) : [];
 
   return (
     <div>
@@ -70,6 +72,7 @@ const Home = ({ dimBackground, isBackgroundDimmed, setIsBackgroundDimmed }) => {
           authUser={authUser}
           isBackgroundDimmed={isBackgroundDimmed}
           setIsBackgroundDimmed={setIsBackgroundDimmed}
+          commentPicture={comment.ownerpicture}
         />
       ) : (
         <p></p>
@@ -91,7 +94,7 @@ const Home = ({ dimBackground, isBackgroundDimmed, setIsBackgroundDimmed }) => {
           <>
             {searchTipList.map((tip) => {
               return (
-                <Tip key={tip._id} tip={tip} dimBackground={dimBackground} />
+                <Tip key={tip._id} tip={tip} dimBackground={dimBackground} setFilteredTips={setFilteredTipsContext} setOriginalTips={setOriginalTipsContext} />
               );
             })}
           </>

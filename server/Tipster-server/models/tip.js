@@ -8,7 +8,8 @@ const tipSchema = new Schema(
     text: String,
     likes: [{type: Schema.Types.ObjectId, ref: "User"}],
     comments: [{type: Schema.Types.ObjectId, ref: "Comment"}],
-    category: String
+    category: String,
+    location: String
   },
 {
   timeseries: true,

@@ -9,7 +9,6 @@ import { useContext, useState } from 'react';
 import { LoadingContext } from "./context/loading.context"
 import Login from './pages/login';
 import Footer from './components/footer';
-import WeatherWidget from './components/WeatherWidget';
 import WeatherApp from './components/WeatherWidget';
 import TipDetail from './pages/TipDetail';
 

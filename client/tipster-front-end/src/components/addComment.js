@@ -5,7 +5,7 @@ import { LoadingContext } from "../context/loading.context"
 import { useContext, useEffect } from "react"
 
 
-const Comment = ({commentOwner, commentKey, commentText, authUser, isBackgroundDimmed, setIsBackgroundDimmed}) => {
+const Comment = ({commentOwner, commentKey, commentText, authUser, isBackgroundDimmed, setIsBackgroundDimmed, commentPicture}) => {
     
     const {comment, setComment, getTips} = useContext(LoadingContext)
 
@@ -13,13 +13,16 @@ const Comment = ({commentOwner, commentKey, commentText, authUser, isBackgroundD
 
     const [ newComment, newSetComment] = useState(
         {
-           picture: authUser.image,
+           ownerpicture: authUser.image,
            owner: authUser.username,
            text: "",
            likes: 0,
-           id: commentKey
+           id: commentKey,
+           picture: ""
         }
     )
+
+
 
    
             const handleExit = () => {
@@ -42,9 +45,8 @@ const Comment = ({commentOwner, commentKey, commentText, authUser, isBackgroundD
                 console.log("Comment", results.data)
                 setIsBackgroundDimmed(false)
                 setComment(null)
-                
-                navigate(`/`)
-                window.location.reload() 
+                getTips(); 
+               
             })
             .catch((err) => {
                 console.log(err)
@@ -55,7 +57,7 @@ const Comment = ({commentOwner, commentKey, commentText, authUser, isBackgroundD
         <div className="commentContainer">
             <div className="commentbox" key={commentKey}>
                 <div className="tipImgName">
-                    <div className="tipImgBox"><img className="profilepic" src="https://cdn-icons-png.flaticon.com/512/702/702814.png" /></div>
+                    <div className="tipImgBox"><img className="profilepic" src={commentPicture} /></div>
                     <p className="commentOwner">{commentOwner}</p>
                     <h3 className="exitComment"><Link className="handleExit" onClick={handleExit}>Exit</Link></h3>
                 </div>
@@ -64,7 +66,7 @@ const Comment = ({commentOwner, commentKey, commentText, authUser, isBackgroundD
                 <div className="tipImgName">
                     <div className="tipImgBox"><img className="profilepic" src={authUser.image}/></div>
                     <form>
-                        <input type='text' name="text" onChange={handleChange} value={newComment.text} placeholder="Sharing is caring!" />
+                        <input className="commentText" type='text' name="text" onChange={handleChange} value={newComment.text} placeholder="Sharing is caring!" />
                         <button onClick={handleSubmit} type="submit">Submit</button>
                     </form>
                 </div>

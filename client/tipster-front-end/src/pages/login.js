@@ -46,23 +46,35 @@ const Login = () => {
     } 
 
     return (
-        <div>
-            <h1>Login</h1>
-            <form onSubmit={handleSubmit}>
+      <div id="login">
+        <h1>Login</h1>
+        <form onSubmit={handleSubmit}>
+          <label>Email </label>
+          <input
+            type="email"
+            name="email"
+            value={checkUser.email}
+            onChange={handleChange}
+          ></input>
 
-                <label>Email</label>
-                <input type='email' name="email" value={checkUser.email} onChange={handleChange}></input>
+          <label className="passwordLabel">Password </label>
+          <input
+            className="passwordInput"
+            type="password"
+            name="password"
+            value={checkUser.password}
+            onChange={handleChange}
+          ></input>
 
-                <label>Password</label>
-                <input type='password' name="password" value={checkUser.password} onChange={handleChange}></input>
-                {error && <p>Error: {error}</p>}
-
-                <button type="submit">Login</button>
-
-            </form>
-
-        </div>
-    )
+          {error && <p>Error: {error}</p>}
+          <div>
+            <button type="submit">
+              <img id="loginImg" src="https://cdn-icons-png.flaticon.com/512/854/854184.png"></img>
+            </button>
+          </div>
+        </form>
+      </div>
+    );
 }
 
 export default Login

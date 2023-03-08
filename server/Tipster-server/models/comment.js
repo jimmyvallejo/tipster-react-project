@@ -2,6 +2,7 @@ const { Schema, model } = require("mongoose");
 
 const commentSchema = new Schema(
   {
+    ownerpicture: String,
     picture: String,
     owner: String,
     text: String,

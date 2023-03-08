@@ -21,6 +21,9 @@ const LoadingProvider = ({ children }) => {
    
 
     const [authUser, setAuthUser] = useState("");
+
+    const [originalTipsContext, setOriginalTipsContext] = useState("")
+    const [filteredTipsContext, setFilteredTipsContext] = useState("")
     
    
     const [message, setMessage] = useState('');
@@ -51,18 +54,9 @@ const LoadingProvider = ({ children }) => {
       })
     }
 
-   const addLike = () => {
-    axios.post(`${baseUrl}/tips/add-like`)
-   }
-
-
-
-        
-    
-
 
     return (
-        <LoadingContext.Provider value={{tips, tip, posts, post, isLoading, message, setPost, setPosts, setTips, setTip, setIsLoading, setMessage, setTimedMessage, getTips, authUser, setAuthUser, comment, setComment}}>
+        <LoadingContext.Provider value={{tips, tip, posts, post, isLoading, message, setPost, setPosts, setTips, setTip, setIsLoading, setMessage, setTimedMessage, getTips, authUser, setAuthUser, comment, setComment, setFilteredTipsContext, setOriginalTipsContext, originalTipsContext, filteredTipsContext}}>
           {children}
         </LoadingContext.Provider>
       );
